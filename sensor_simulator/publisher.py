@@ -1,9 +1,8 @@
 import json
 import time
-
 import paho.mqtt.client as mqtt
-
 from sensors import SensorSimulator
+
 from config import (
     MQTT_BROKER,
     MQTT_PORT,
@@ -12,7 +11,6 @@ from config import (
 )
 
 client = mqtt.Client()
-
 client.connect(
     MQTT_BROKER,
     MQTT_PORT,
@@ -20,18 +18,15 @@ client.connect(
 )
 
 simulator = SensorSimulator()
-
 print("Publishing sensor data...")
 
+
 while True:
-
     data = simulator.generate_sensor_data()
-
     client.publish(
         MQTT_TOPIC,
         json.dumps(data)
     )
 
     print(data)
-
     time.sleep(PUBLISH_INTERVAL)

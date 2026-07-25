@@ -1,6 +1,5 @@
 import json
 import paho.mqtt.client as mqtt
-
 from anomaly_detector import AnomalyDetector
 
 
@@ -9,7 +8,6 @@ detector = AnomalyDetector()
 
 
 class EdgeProcessor:
-
     def __init__(self, mqtt_client):
         self.client = mqtt_client
 
@@ -32,9 +30,7 @@ class EdgeProcessor:
             alert["prediction"] = "ANOMALY"
 
             self.client.publish(ALERT_TOPIC, json.dumps(alert))
-
             print("\nAlert Published")
 
         else:
-
             print("\nNormal Data")

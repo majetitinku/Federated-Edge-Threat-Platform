@@ -5,9 +5,8 @@ import sys
 import paho.mqtt.client as mqtt
 from fog_node.fog_processor import FogProcessor
 sys.path.append(os.path.abspath("..\database"))
-
-
 from database.database import Database
+
 # MQTT Configuration
 BROKER = "localhost"
 PORT = 1883
@@ -86,7 +85,6 @@ def on_message(client, userdata, msg):
 
 
 client = mqtt.Client()
-
 client.on_connect = on_connect
 client.on_message = on_message
 client.connect(BROKER, PORT, 60)
