@@ -1,13 +1,13 @@
 import os
 import sys
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 import streamlit as st
 from database.aws_db import load_alerts
 import pandas as pd
 import plotly.express as px
 from streamlit_autorefresh import st_autorefresh
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 st_autorefresh(
     interval=5000,
@@ -29,7 +29,6 @@ st.divider()
 
 # Database Connection
 # for AWS DynamoDB
-
 from database.aws_db import load_alerts
 try:
     df = load_alerts()
@@ -37,21 +36,11 @@ try:
         st.warning("No alerts available.")
         st.stop()
 
-# for SQLITE
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# DB_PATH = os.path.join(BASE_DIR, "database", "threat_platform.db")
-
-# try:
-#     conn = sqlite3.connect(DB_PATH)
-#     df = pd.read_sql_query("SELECT * FROM alerts ORDER BY id DESC", conn)
-#     conn.close()
-
 except Exception as e:
     st.error(f"Database Error: {e}")
     st.stop()
 
 # KPI Cards
-
 total_alerts = len(df)
 high_alerts = len(df[df["severity"] == "HIGH"])
 medium_alerts = len(df[df["severity"] == "MEDIUM"])
@@ -113,7 +102,6 @@ with left_col:
 
     st.plotly_chart(fig_pie, use_container_width=True)
 
-# ---------- Bar Chart ----------
 with right_col:
 
     st.subheader("Alerts by Machine")
@@ -192,7 +180,6 @@ st.dataframe(
 )
 
 # System Status
-
 st.subheader("🖥️ System Status")
 
 c1, c2, c3, c4 = st.columns(4)
@@ -213,7 +200,6 @@ with c4:
 
 
 # Sidebar
-
 st.sidebar.title("Platform Info")
 st.sidebar.markdown("---")
 
