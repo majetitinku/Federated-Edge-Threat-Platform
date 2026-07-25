@@ -216,3 +216,27 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# AWS Certificates
+aws/certificates/
+*.pem
+*.key
+*.crt
+*.csr
+
+# Environment variables
+.env
+.env.*
+
+# Python
+env/
+venv/
+__pycache__/
+*.pyc
+
+# Database
+*.db
+
+# Logs
+*.log
