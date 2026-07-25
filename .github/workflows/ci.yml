@@ -3,7 +3,6 @@ name: Federated Edge Threat Platform CI
 on:
   push:
     branches: [main]
-
   pull_request:
     branches: [main]
 
@@ -38,5 +37,14 @@ jobs:
           python -c "import fog_node"
           python -c "import sensor_simulator"
 
+      - name: Initialize database
+        run: python database/init_db.py
+
+      - name: Verify Isolation Forest model
+        run: python edge_node/train_model.py
+
+      - name: Verify Dashboard
+        run: python -c "from dashboard.app import *"
+
       - name: CI completed
-        run: echo "CI pipeline completed successfully."
+        run: echo "Pipeline completed successfully."
